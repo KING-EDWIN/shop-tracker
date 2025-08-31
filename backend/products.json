@@ -1,0 +1,338 @@
+[
+  {
+    "name": "Classic Shirt",
+    "wholesaleCost": 15000,
+    "retailCost": 25000,
+    "quantitySold": 120,
+    "photo": "/assets/products/shirt1.jpg"
+  },
+  {
+    "name": "Denim Jeans",
+    "wholesaleCost": 30000,
+    "retailCost": 45000,
+    "quantitySold": 80,
+    "photo": "/assets/products/jeans1.jpg"
+  },
+  {
+    "name": "Sneakers",
+    "wholesaleCost": 40000,
+    "retailCost": 60000,
+    "quantitySold": 60,
+    "photo": "/assets/products/sneakers1.jpg"
+  },
+  {
+    "name": "Summer Dress",
+    "wholesaleCost": 20000,
+    "retailCost": 35000,
+    "quantitySold": 95,
+    "photo": "/assets/products/dress1.jpg"
+  },
+  {
+    "name": "Leather Belt",
+    "wholesaleCost": 8000,
+    "retailCost": 15000,
+    "quantitySold": 50,
+    "photo": "/assets/products/belt1.jpg"
+  },
+  {
+    "name": "Sports Cap",
+    "wholesaleCost": 5000,
+    "retailCost": 12000,
+    "quantitySold": 70,
+    "photo": "/assets/products/cap1.jpg"
+  },
+  {
+    "name": "Formal Trousers",
+    "wholesaleCost": 25000,
+    "retailCost": 40000,
+    "quantitySold": 40,
+    "photo": "/assets/products/trousers1.jpg"
+  },
+  {
+    "name": "Wool Sweater",
+    "wholesaleCost": 18000,
+    "retailCost": 30000,
+    "quantitySold": 55,
+    "photo": "/assets/products/sweater1.jpg"
+  },
+  {
+    "name": "Canvas Shoes",
+    "wholesaleCost": 22000,
+    "retailCost": 35000,
+    "quantitySold": 65,
+    "photo": "/assets/products/canvas1.jpg"
+  },
+  {
+    "name": "Kids T-shirt",
+    "wholesaleCost": 7000,
+    "retailCost": 12000,
+    "quantitySold": 100,
+    "photo": "/assets/products/kids1.jpg"
+  },
+  {
+    "name": "Ladies Handbag",
+    "wholesaleCost": 35000,
+    "retailCost": 55000,
+    "quantitySold": 30,
+    "photo": "/assets/products/handbag1.jpg"
+  },
+  {
+    "name": "Men's Watch",
+    "wholesaleCost": 50000,
+    "retailCost": 80000,
+    "quantitySold": 25,
+    "photo": "/assets/products/watch1.jpg"
+  },
+  {
+    "name": "Socks Pack",
+    "wholesaleCost": 3000,
+    "retailCost": 7000,
+    "quantitySold": 150,
+    "photo": "/assets/products/socks1.jpg"
+  },
+  {
+    "name": "Rain Jacket",
+    "wholesaleCost": 25000,
+    "retailCost": 40000,
+    "quantitySold": 45,
+    "photo": "/assets/products/jacket1.jpg"
+  },
+  {
+    "name": "School Backpack",
+    "wholesaleCost": 20000,
+    "retailCost": 35000,
+    "quantitySold": 60,
+    "photo": "/assets/products/backpack1.jpg"
+  },
+  {
+    "name": "Flip Flops",
+    "wholesaleCost": 4000,
+    "retailCost": 9000,
+    "quantitySold": 110,
+    "photo": "/assets/products/flops1.jpg"
+  },
+  {
+    "name": "Men's Polo",
+    "wholesaleCost": 12000,
+    "retailCost": 20000,
+    "quantitySold": 75,
+    "photo": "/assets/products/polo1.jpg"
+  },
+  {
+    "name": "Ladies Scarf",
+    "wholesaleCost": 6000,
+    "retailCost": 15000,
+    "quantitySold": 80,
+    "photo": "/assets/products/scarf1.jpg"
+  },
+  {
+    "name": "Children's Shorts",
+    "wholesaleCost": 8000,
+    "retailCost": 14000,
+    "quantitySold": 90,
+    "photo": "/assets/products/shorts1.jpg"
+  },
+  {
+    "name": "Winter Gloves",
+    "wholesaleCost": 5000,
+    "retailCost": 12000,
+    "quantitySold": 35,
+    "photo": "/assets/products/gloves1.jpg"
+  },
+  {
+    "name": "Men's Tie",
+    "wholesaleCost": 4000,
+    "retailCost": 10000,
+    "quantitySold": 55,
+    "photo": "/assets/products/tie1.jpg"
+  },
+  {
+    "name": "Ladies Blouse",
+    "wholesaleCost": 15000,
+    "retailCost": 25000,
+    "quantitySold": 60,
+    "photo": "/assets/products/blouse1.jpg"
+  },
+  {
+    "name": "Men's Suit",
+    "wholesaleCost": 80000,
+    "retailCost": 120000,
+    "quantitySold": 10,
+    "photo": "/assets/products/suit1.jpg"
+  },
+  {
+    "name": "Children's Dress",
+    "wholesaleCost": 10000,
+    "retailCost": 18000,
+    "quantitySold": 85,
+    "photo": "/assets/products/kidsdress1.jpg"
+  },
+  {
+    "name": "Ladies Sandals",
+    "wholesaleCost": 12000,
+    "retailCost": 22000,
+    "quantitySold": 70,
+    "photo": "/assets/products/sandals1.jpg"
+  },
+  {
+    "name": "Men's Boots",
+    "wholesaleCost": 35000,
+    "retailCost": 60000,
+    "quantitySold": 20,
+    "photo": "/assets/products/boots1.jpg"
+  },
+  {
+    "name": "Ladies Necklace",
+    "wholesaleCost": 10000,
+    "retailCost": 25000,
+    "quantitySold": 40,
+    "photo": "/assets/products/necklace1.jpg"
+  },
+  {
+    "name": "Men's Wallet",
+    "wholesaleCost": 8000,
+    "retailCost": 18000,
+    "quantitySold": 50,
+    "photo": "/assets/products/wallet1.jpg"
+  },
+  {
+    "name": "Children's Cap",
+    "wholesaleCost": 3000,
+    "retailCost": 7000,
+    "quantitySold": 60,
+    "photo": "/assets/products/kidscap1.jpg"
+  },
+  {
+    "name": "Ladies Purse",
+    "wholesaleCost": 9000,
+    "retailCost": 20000,
+    "quantitySold": 35,
+    "photo": "/assets/products/purse1.jpg"
+  },
+  {
+    "name": "Men's Sunglasses",
+    "wholesaleCost": 15000,
+    "retailCost": 35000,
+    "quantitySold": 25,
+    "photo": "/assets/products/sunglasses1.jpg"
+  },
+  {
+    "name": "Ladies Earrings",
+    "wholesaleCost": 5000,
+    "retailCost": 12000,
+    "quantitySold": 60,
+    "photo": "/assets/products/earrings1.jpg"
+  },
+  {
+    "name": "Children's Socks",
+    "wholesaleCost": 2000,
+    "retailCost": 5000,
+    "quantitySold": 100,
+    "photo": "/assets/products/kidssocks1.jpg"
+  },
+  {
+    "name": "Men's Jacket",
+    "wholesaleCost": 30000,
+    "retailCost": 50000,
+    "quantitySold": 30,
+    "photo": "/assets/products/jacket2.jpg"
+  },
+  {
+    "name": "Ladies Hat",
+    "wholesaleCost": 7000,
+    "retailCost": 15000,
+    "quantitySold": 45,
+    "photo": "/assets/products/hat1.jpg"
+  },
+  {
+    "name": "Children's Shoes",
+    "wholesaleCost": 12000,
+    "retailCost": 20000,
+    "quantitySold": 80,
+    "photo": "/assets/products/kidsshoes1.jpg"
+  },
+  {
+    "name": "Men's Shorts",
+    "wholesaleCost": 10000,
+    "retailCost": 18000,
+    "quantitySold": 60,
+    "photo": "/assets/products/shorts2.jpg"
+  },
+  {
+    "name": "Ladies Skirt",
+    "wholesaleCost": 12000,
+    "retailCost": 22000,
+    "quantitySold": 55,
+    "photo": "/assets/products/skirt1.jpg"
+  },
+  {
+    "name": "Children's Sweater",
+    "wholesaleCost": 8000,
+    "retailCost": 15000,
+    "quantitySold": 70,
+    "photo": "/assets/products/kidssweater1.jpg"
+  },
+  {
+    "name": "Men's T-shirt",
+    "wholesaleCost": 9000,
+    "retailCost": 16000,
+    "quantitySold": 90,
+    "photo": "/assets/products/tshirt1.jpg"
+  },
+  {
+    "name": "Ladies Bracelet",
+    "wholesaleCost": 4000,
+    "retailCost": 10000,
+    "quantitySold": 60,
+    "photo": "/assets/products/bracelet1.jpg"
+  },
+  {
+    "name": "Children's Backpack",
+    "wholesaleCost": 10000,
+    "retailCost": 18000,
+    "quantitySold": 50,
+    "photo": "/assets/products/kidsbackpack1.jpg"
+  },
+  {
+    "name": "Men's Hoodie",
+    "wholesaleCost": 20000,
+    "retailCost": 35000,
+    "quantitySold": 40,
+    "photo": "/assets/products/hoodie1.jpg"
+  },
+  {
+    "name": "Ladies Ring",
+    "wholesaleCost": 6000,
+    "retailCost": 15000,
+    "quantitySold": 30,
+    "photo": "/assets/products/ring1.jpg"
+  },
+  {
+    "name": "Children's Gloves",
+    "wholesaleCost": 3000,
+    "retailCost": 8000,
+    "quantitySold": 60,
+    "photo": "/assets/products/kidsgloves1.jpg"
+  },
+  {
+    "name": "Men's Sandals",
+    "wholesaleCost": 10000,
+    "retailCost": 18000,
+    "quantitySold": 70,
+    "photo": "/assets/products/sandals2.jpg"
+  },
+  {
+    "name": "Ladies Watch",
+    "wholesaleCost": 40000,
+    "retailCost": 70000,
+    "quantitySold": 20,
+    "photo": "/assets/products/watch2.jpg"
+  },
+  {
+    "name": "Children's Hat",
+    "wholesaleCost": 4000,
+    "retailCost": 9000,
+    "quantitySold": 80,
+    "photo": "/assets/products/kidshat1.jpg"
+  }
+]

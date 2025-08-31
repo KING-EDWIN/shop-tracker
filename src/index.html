@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Analyser</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/otic-foundation-logo.svg" alt="Otic Foundation Logo" id="logo" style="height:32px;width:32px;object-fit:contain;margin-right:0.5rem;">
+                <button id="toggle-sidebar" onclick="document.getElementById('sidebar').classList.toggle('collapsed')"><i class="fas fa-bars"></i></button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="/pages/dashboard" data-page="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/pages/products" data-page="products">
+                    <i class="fas fa-box"></i>
+                    <span>Add Products</span>
+                </a>
+                <a href="/pages/ai-insights" data-page="ai-insights">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Insights</span>
+                </a>
+                <a href="/pages/accountability" data-page="accountability">
+                    <i class="fas fa-chart-line"></i>
+                    <span>My Accountability</span>
+                </a>
+                <a href="/pages/taxes" data-page="taxes">
+                    <i class="fas fa-receipt"></i>
+                    <span>Manage Taxes</span>
+                </a>
+                <a href="/pages/wholesalers" data-page="wholesalers">
+                    <i class="fas fa-store"></i>
+                    <span>Add Wholesalers</span>
+                </a>
+                <a href="/pages/adverts" data-page="adverts">
+                    <i class="fas fa-ad"></i>
+                    <span>My Adverts</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <h1 id="page-title">Dashboard</h1>
+                <div class="user-info">
+                    <span id="user-name">John Doe</span>
+                    <img src="https://via.placeholder.com/32" alt="User" class="avatar">
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <div class="profit-chart-container">
+                    <canvas id="profitChart"></canvas>
+                    <div class="time-controls">
+                        <button data-time="day">Day</button>
+                        <button data-time="week">Week</button>
+                        <button data-time="month">Month</button>
+                        <button data-time="year">Year</button>
+                    </div>
+                </div>
+
+                <div class="ai-messages">
+                    <h2><i class="fas fa-robot"></i> AI Insights</h2>
+                    <div class="message-list" id="ai-messages">
+                        <!-- AI messages will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="products-overview">
+                    <h2><i class="fas fa-box"></i> Products Overview</h2>
+                    <div class="sort-controls">
+                        <button data-sort="profit-high">Highest Profit</button>
+                        <button data-sort="profit-low">Lowest Profit</button>
+                    </div>
+                    <div id="product-list">
+                        <!-- Products will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+    <script type="module" src="js/charts.js"></script>
+    <script type="module" src="js/aiMessages.js"></script>
+</body>
+</html>

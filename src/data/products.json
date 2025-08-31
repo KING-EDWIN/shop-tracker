@@ -1,0 +1,49 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "T-Shirt",
+      "category": "Clothing",
+      "wholesaleCost": 5.00,
+      "retailCost": 10.00,
+      "quantitySold": 150,
+      "profit": 750.00
+    },
+    {
+      "id": 2,
+      "name": "Soda",
+      "category": "Drinks",
+      "wholesaleCost": 0.50,
+      "retailCost": 1.00,
+      "quantitySold": 300,
+      "profit": 150.00
+    },
+    {
+      "id": 3,
+      "name": "Jeans",
+      "category": "Clothing",
+      "wholesaleCost": 15.00,
+      "retailCost": 30.00,
+      "quantitySold": 100,
+      "profit": 1500.00
+    },
+    {
+      "id": 4,
+      "name": "Water Bottle",
+      "category": "Accessories",
+      "wholesaleCost": 2.00,
+      "retailCost": 4.00,
+      "quantitySold": 200,
+      "profit": 400.00
+    },
+    {
+      "id": 5,
+      "name": "Coffee",
+      "category": "Food",
+      "wholesaleCost": 3.00,
+      "retailCost": 6.00,
+      "quantitySold": 250,
+      "profit": 750.00
+    }
+  ]
+}

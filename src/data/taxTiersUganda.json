@@ -1,0 +1,29 @@
+{
+  "taxTiers": [
+    {
+      "tier": "Tier 1",
+      "incomeRange": "0 - 2,000,000",
+      "taxRate": 0.0
+    },
+    {
+      "tier": "Tier 2",
+      "incomeRange": "2,000,001 - 4,000,000",
+      "taxRate": 0.1
+    },
+    {
+      "tier": "Tier 3",
+      "incomeRange": "4,000,001 - 8,000,000",
+      "taxRate": 0.2
+    },
+    {
+      "tier": "Tier 4",
+      "incomeRange": "8,000,001 - 12,000,000",
+      "taxRate": 0.3
+    },
+    {
+      "tier": "Tier 5",
+      "incomeRange": "12,000,001 and above",
+      "taxRate": 0.4
+    }
+  ]
+}

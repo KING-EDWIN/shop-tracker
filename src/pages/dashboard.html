@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Shop Analyser</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+<div class="page-content">
+    <button class="btn-primary" onclick="window.location.href='/pages/dashboard'">
+        <i class="fas fa-home"></i> Dashboard
+    </button>
+    <div class="card mt-4">
+        <div class="card-header">
+            <h2><i class="fas fa-chart-line"></i> Business Performance</h2>
+        </div>
+        <div class="card-body">
+            <div class="profit-chart-container">
+                <canvas id="profitChart"></canvas>
+                <div class="time-controls">
+                    <button class="btn-control active" data-time="day">Day</button>
+                    <button class="btn-control" data-time="week">Week</button>
+                    <button class="btn-control" data-time="month">Month</button>
+                    <button class="btn-control" data-time="year">Year</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-4">
+        <div class="card-header">
+            <h2><i class="fas fa-robot"></i> AI Insights</h2>
+        </div>
+        <div class="card-body">
+            <div id="ai-messages" class="message-list"></div>
+        </div>
+    </div>
+</div>
+<script type="module">
+    import { initializeCharts } from '../js/charts.js';
+    import { initializeAiMessages } from '../js/aiMessages.js';
+    initializeCharts();
+    initializeAiMessages();
+</script>
+</body>
+</html>

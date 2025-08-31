@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Advert Expenses - Shop Analyser</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <main>
+    <h1>My Advert Expenses</h1>
+    <div class="page-content">
+      <button class="btn-primary" onclick="window.location.href='/pages/dashboard'">
+          <i class="fas fa-home"></i> Dashboard
+      </button>
+      <div class="card mt-4">
+          <div class="card-header">
+              <h2><i class="fas fa-ad"></i> My Adverts</h2>
+          </div>
+          <div class="card-body">
+              <ul>
+                  <li>Facebook Ads: 100,000 UGX</li>
+                  <li>Radio: 50,000 UGX</li>
+                  <li>Flyers: 20,000 UGX</li>
+              </ul>
+              <button class="btn-primary" onclick="window.print()">Print Expenses</button>
+          </div>
+      </div>
+    </div>
+    <div id="advert-expenses-list"></div>
+    <script src="../js/advertExpenses.js"></script>
+  </main>
+</body>
+</html>

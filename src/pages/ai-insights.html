@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Insights - Shop Analyser</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <script src="../js/app.js" defer></script>
+    <script src="../js/aiLogic.js" defer></script>
+    <script src="../js/dashboard.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>AI Insights</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Dashboard</a></li>
+                <li><a href="../pages/about.html">About</a></li>
+                <li><a href="#" id="logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="page-content">
+            <button class="btn-primary" onclick="window.location.href='/pages/dashboard'">
+                <i class="fas fa-home"></i> Dashboard
+            </button>
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h2><i class="fas fa-robot"></i> AI Insights</h2>
+                </div>
+                <div class="card-body">
+                    <div id="ai-messages" class="message-list"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Shop Analyser. Powered by Otic Foundation.</p>
+    </footer>
+    <script src="../js/transitions.js" defer></script>
+    <script type="module">
+        import { initializeAiMessages } from '../js/aiMessages.js';
+        initializeAiMessages();
+    </script>
+</body>
+</html>
