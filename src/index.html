@@ -3,217 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Analyser</title>
+    <title>Shop Analyser Enterprise - Professional Retail Management Platform</title>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!-- SIMPLE LOGOUT BUTTON - TOP RIGHT CORNER -->
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 99999; background: #ff0000; color: white; padding: 8px 12px; border-radius: 8px; font-size: 14px; font-weight: bold; box-shadow: 0 4px 12px rgba(255,0,0,0.4);">
+        <button onclick="window.location.href='/login'" style="background: #ffffff; color: #ff0000; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer;">
+            🚪 LOGOUT
+        </button>
+    </div>
+    
     <div class="app-container">
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <img src="assets/otic-foundation-logo.svg" alt="Otic Foundation Logo" id="logo" style="height:32px;width:32px;object-fit:contain;margin-right:0.5rem;">
-                <button id="toggle-sidebar" onclick="document.getElementById('sidebar').classList.toggle('collapsed')"><i class="fas fa-bars"></i></button>
+                <div class="brand">
+                    <div class="brand-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="brand-text">
+                        <h2>Shop Analyser</h2>
+                        <span class="brand-subtitle">Enterprise Edition</span>
+                    </div>
+                </div>
+                <button id="toggle-sidebar" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-info">
+                    <div class="user-name">John Doe</div>
+                    <div class="user-role">Administrator</div>
+                </div>
             </div>
             
             <nav class="sidebar-nav">
-                <a href="/pages/dashboard" data-page="dashboard">
-                    <i class="fas fa-home"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="/pages/products" data-page="products">
-                    <i class="fas fa-box"></i>
-                    <span>Add Products</span>
-                </a>
-                <a href="/pages/ai-insights" data-page="ai-insights">
-                    <i class="fas fa-robot"></i>
-                    <span>AI Insights</span>
-                </a>
-                <a href="/pages/analytics" data-page="analytics">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Analytics</span>
-                </a>
-                <a href="/pages/accountability" data-page="accountability">
-                    <i class="fas fa-chart-line"></i>
-                    <span>My Accountability</span>
-                </a>
-                <a href="/pages/taxes" data-page="taxes">
-                    <i class="fas fa-receipt"></i>
-                    <span>Manage Taxes</span>
-                </a>
-                <a href="/pages/wholesalers" data-page="wholesalers">
-                    <i class="fas fa-store"></i>
-                    <span>Add Wholesalers</span>
-                </a>
-                <a href="/pages/adverts" data-page="adverts">
-                    <i class="fas fa-ad"></i>
-                    <span>My Adverts</span>
-                </a>
-            </nav>
+                <div class="nav-section">
+                    <h3>Core Business</h3>
+                    <a href="#" class="nav-link active" data-page="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Executive Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-link" data-page="products">
+                        <i class="fas fa-box"></i>
+                        <span>Inventory Management</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>Intelligence</h3>
+                    <a href="#" class="nav-link" data-page="ai-insights">
+                        <i class="fas fa-robot"></i>
+                        <span>AI Business Insights</span>
+                    </a>
+                    <a href="#" class="nav-link" data-page="analytics">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Advanced Analytics</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>Operations</h3>
+                    <a href="#" class="nav-link" data-page="accountability">
+                        <i class="fas fa-calculator"></i>
+                        <span>Financial Accountability</span>
+                    </a>
+                    <a href="#" class="nav-link" data-page="taxes">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Tax Management</span>
+                    </a>
+                    <a href="#" class="nav-link" data-page="wholesalers">
+                        <i class="fas fa-truck"></i>
+                        <span>Supplier Management</span>
+                    </a>
+                    <a href="#" class="nav-link" data-page="adverts">
+                        <i class="fas fa-ad"></i>
+                        <span>Marketing Campaigns</span>
+                    </a>
+                </div>
 
+                <div class="nav-section">
+                    <h3>Cashier Tools</h3>
+                    <a href="#" class="nav-link" data-page="sales-entry">
+                        <i class="fas fa-cash-register"></i>
+                        <span>Sales Entry</span>
+                    </a>
+                    <a href="#" class="nav-link" data-page="daily-summary">
+                        <i class="fas fa-calendar-day"></i>
+                        <span>Daily Summary</span>
+                    </a>
+                    <a href="#" class="nav-link" data-page="basic-analytics">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Basic Analytics</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Manager Tools</h3>
+                    <a href="#" class="nav-link" data-page="business-reports">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Business Reports</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>System</h3>
+                    <a href="#" class="nav-link" data-page="users">
+                        <i class="fas fa-users"></i>
+                        <span>User Management</span>
+                    </a>
+                    <a href="#" class="nav-link" data-page="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>System Settings</span>
+                    </a>
+                </div>
+            </nav>
+            
             <div class="sidebar-footer">
-                <button id="theme-toggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <button id="logout">
-                    <i class="fas fa-sign-out-alt"></i>
-                </button>
+                <div class="system-status">
+                    <div class="status-indicator online"></div>
+                    <span>System Online</span>
+                </div>
+                <div class="version-info">
+                    v2.1.0 Enterprise
+                </div>
             </div>
         </aside>
 
         <!-- Main Content -->
         <main class="main-content">
-            <div class="top-bar">
-                <h1 id="page-title">Dashboard</h1>
-                <div class="user-info">
-                    <span id="user-name">John Doe</span>
-                    <img src="https://via.placeholder.com/32" alt="User" class="avatar">
-                </div>
-            </div>
 
-            <!-- Dashboard Content -->
-            <div class="dashboard-content">
-                <!-- KPI Cards -->
-                <div class="kpi-grid">
-                    <div class="kpi-card revenue">
-                        <div class="kpi-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <h3>Total Revenue</h3>
-                            <div class="kpi-value" id="total-revenue">UGX 0</div>
-                            <div class="kpi-trend positive" id="revenue-trend">
-                                <i class="fas fa-arrow-up"></i> +12.5%
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="kpi-card profit">
-                        <div class="kpi-icon">
-                            <i class="fas fa-coins"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <h3>Net Profit</h3>
-                            <div class="kpi-value" id="net-profit">UGX 0</div>
-                            <div class="kpi-trend positive" id="profit-trend">
-                                <i class="fas fa-arrow-up"></i> +8.3%
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="kpi-card products">
-                        <div class="kpi-icon">
-                            <i class="fas fa-box"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <h3>Active Products</h3>
-                            <div class="kpi-value" id="active-products">0</div>
-                            <div class="kpi-trend neutral" id="products-trend">
-                                <i class="fas fa-minus"></i> 0%
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="kpi-card margin">
-                        <div class="kpi-icon">
-                            <i class="fas fa-percentage"></i>
-                        </div>
-                        <div class="kpi-content">
-                            <h3>Profit Margin</h3>
-                            <div class="kpi-value" id="profit-margin">0%</div>
-                            <div class="kpi-trend positive" id="margin-trend">
-                                <i class="fas fa-arrow-up"></i> +2.1%
-                            </div>
-                        </div>
+            
+            <header class="main-header">
+                <div class="header-left">
+                    <h1 id="page-title">Executive Dashboard</h1>
+                    <div class="breadcrumb">
+                        <span>Home</span> / <span id="breadcrumb-current">Dashboard</span>
                     </div>
                 </div>
-
-                <!-- Charts Section -->
-                <div class="charts-section">
-                    <div class="chart-container main-chart">
-                        <div class="chart-header">
-                            <h3><i class="fas fa-chart-bar"></i> Sales Performance</h3>
-                            <div class="chart-controls">
-                                <select id="chart-type" class="chart-select">
-                                    <option value="revenue">Revenue</option>
-                                    <option value="profit">Profit</option>
-                                    <option value="units">Units Sold</option>
-                                </select>
-                                <div class="time-controls">
-                                    <button class="btn-control active" data-time="day">Day</button>
-                                    <button class="btn-control" data-time="week">Week</button>
-                                    <button class="btn-control" data-time="month">Month</button>
-                                    <button class="btn-control" data-time="year">Year</button>
-                                </div>
-                            </div>
-                        </div>
-                        <canvas id="profitChart"></canvas>
+                
+                <div class="header-right">
+                    <div class="header-actions">
+                        <button class="btn-secondary" onclick="showNotifications()">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                        <button class="btn-secondary" onclick="showHelp()">
+                            <i class="fas fa-question-circle"></i>
+                        </button>
+                        <button class="btn-secondary" onclick="exportData()">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <button onclick="window.location.href='/login'" style="background: #ff0000; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 14px; font-weight: bold; cursor: pointer; margin-left: 10px;">
+                            🚪 LOGOUT
+                        </button>
                     </div>
-                    
-                    <div class="chart-container category-chart">
-                        <div class="chart-header">
-                            <h3><i class="fas fa-pie-chart"></i> Category Performance</h3>
+
+                    <div class="user-menu">
+                        <div class="user-avatar-small">
+                            <i class="fas fa-user-circle"></i>
                         </div>
-                        <canvas id="categoryChart"></canvas>
+                        <div class="user-details">
+                            <span class="user-name">John Doe</span>
+                            <span class="user-email">john@shopanalyser.com</span>
+                        </div>
+                        <button class="user-menu-toggle" onclick="toggleUserMenu()">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
                     </div>
                 </div>
+            </header>
 
-                <!-- AI Insights and Top Products -->
-                <div class="insights-section">
-                    <div class="ai-messages">
-                        <div class="section-header">
-                            <h2><i class="fas fa-robot"></i> AI Business Insights</h2>
-                            <button class="btn-primary" id="refresh-ai">
-                                <i class="fas fa-sync-alt"></i> Refresh
-                            </button>
-                        </div>
-                        <div class="message-list" id="ai-messages">
-                            <!-- AI messages will be inserted here -->
-                        </div>
-                    </div>
-
-                    <div class="top-products">
-                        <div class="section-header">
-                            <h2><i class="fas fa-trophy"></i> Top Performers</h2>
-                            <div class="sort-controls">
-                                <button class="btn-control active" data-sort="profit-high">Highest Profit</button>
-                                <button class="btn-control" data-sort="revenue-high">Highest Revenue</button>
-                                <button class="btn-control" data-sort="units-high">Most Sold</button>
-                            </div>
-                        </div>
-                        <div id="top-products-list" class="top-products-grid">
-                            <!-- Top products will be inserted here -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Inventory Alerts -->
-                <div class="alerts-section">
-                    <div class="alert-card low-stock">
-                        <div class="alert-header">
-                            <h3><i class="fas fa-exclamation-triangle"></i> Low Stock Alert</h3>
-                            <span class="alert-count" id="low-stock-count">0</span>
-                        </div>
-                        <div id="low-stock-items" class="alert-items">
-                            <!-- Low stock items will be inserted here -->
-                        </div>
-                    </div>
-                    
-                    <div class="alert-card slow-moving">
-                        <div class="alert-header">
-                            <h3><i class="fas fa-clock"></i> Slow Moving Items</h3>
-                            <span class="alert-count" id="slow-moving-count">0</span>
-                        </div>
-                        <div id="slow-moving-items" class="alert-items">
-                            <!-- Slow moving items will be inserted here -->
-                        </div>
-                    </div>
-                </div>
+            <!-- Content Area -->
+            <div id="content-area">
+                <!-- Dashboard content will be loaded here -->
             </div>
         </main>
     </div>
 
-    <script type="module" src="js/app.js"></script>
+    <!-- Notifications Panel -->
+    <div id="notifications-panel" class="notifications-panel hidden">
+        <div class="notifications-header">
+            <h3>Notifications</h3>
+            <button onclick="closeNotifications()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notifications-list">
+            <div class="notification-item urgent">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div class="notification-content">
+                    <h4>Low Stock Alert</h4>
+                    <p>3 products are below reorder point</p>
+                    <span class="notification-time">2 minutes ago</span>
+                </div>
+            </div>
+            <div class="notification-item info">
+                <i class="fas fa-info-circle"></i>
+                <div class="notification-content">
+                    <h4>Campaign Success</h4>
+                    <p>Summer Sale campaign exceeded targets</p>
+                    <span class="notification-time">1 hour ago</span>
+                </div>
+            </div>
+            <div class="notification-item success">
+                <i class="fas fa-check-circle"></i>
+                <div class="notification-content">
+                    <h4>System Update</h4>
+                    <p>New features have been deployed</p>
+                    <span class="notification-time">3 hours ago</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Menu Dropdown -->
+    <div id="user-menu-dropdown" class="user-menu-dropdown hidden">
+        <div class="menu-header">
+            <div class="user-avatar-small">
+                <span>👑</span>
+            </div>
+            <div class="user-details">
+                <span class="user-name">John Doe</span>
+                <span class="user-email">john@shopanalyser.com</span>
+            </div>
+        </div>
+        <div class="menu-divider"></div>
+        <div class="menu-item" onclick="showProfile()">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </div>
+        <div class="menu-item" onclick="showPreferences()">
+            <i class="fas fa-cog"></i>
+            <span>Preferences</span>
+        </div>
+        <div class="menu-item" onclick="showHelp()">
+            <i class="fas fa-question-circle"></i>
+            <span>Help & Support</span>
+        </div>
+        <div class="menu-divider"></div>
+        <div class="menu-item" onclick="window.logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/inventoryManagement.js"></script>
 </body>
 </html>
