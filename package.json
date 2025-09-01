@@ -1,0 +1,40 @@
+{
+  "name": "shop-analyser",
+  "version": "2.0.0",
+  "description": "AI-powered supermarket and retail chain management system with advanced analytics and predictive insights",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "build": "cd backend && npm install",
+    "vercel-build": "cd backend && npm install"
+  },
+  "keywords": [
+    "retail",
+    "supermarket",
+    "analytics",
+    "ai",
+    "business-intelligence",
+    "inventory-management",
+    "uganda",
+    "pos",
+    "dashboard"
+  ],
+  "author": "Otic Foundation",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "chart.js": "^4.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dylansoG/shop-analyser.git"
+  },
+  "homepage": "https://shop-analyser.vercel.app"
+}

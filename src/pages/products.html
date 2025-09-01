@@ -22,21 +22,57 @@
                 </div>
                 <div class="form-group">
                     <label><i class="fas fa-tag"></i> Product Name</label>
-                    <input type="text" id="product-name" required>
+                    <input type="text" id="product-name" required placeholder="Enter product name">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-list"></i> Category</label>
+                    <select id="product-category" required>
+                        <option value="">Select Category</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Footwear">Footwear</option>
+                        <option value="Accessories">Accessories</option>
+                        <option value="Children">Children's Items</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Home & Garden">Home & Garden</option>
+                        <option value="Health & Beauty">Health & Beauty</option>
+                        <option value="Sports & Outdoors">Sports & Outdoors</option>
+                        <option value="Books & Media">Books & Media</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label><i class="fas fa-money-bill"></i> Wholesale Cost</label>
-                        <input type="number" id="wholesale-cost" required>
+                        <label><i class="fas fa-money-bill"></i> Wholesale Cost (UGX)</label>
+                        <input type="number" id="wholesale-cost" required placeholder="0" min="0">
                     </div>
                     <div class="form-group">
-                        <label><i class="fas fa-tag"></i> Retail Cost</label>
-                        <input type="number" id="retail-cost" required>
+                        <label><i class="fas fa-tag"></i> Retail Cost (UGX)</label>
+                        <input type="number" id="retail-cost" required placeholder="0" min="0">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-boxes"></i> Current Stock</label>
+                        <input type="number" id="current-stock" required placeholder="0" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-sort-numeric-up"></i> Quantity Sold</label>
+                        <input type="number" id="quantity-sold" required placeholder="0" min="0">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-barcode"></i> SKU/Barcode</label>
+                        <input type="text" id="product-sku" placeholder="Optional">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-warehouse"></i> Supplier</label>
+                        <input type="text" id="supplier" placeholder="Supplier name">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label><i class="fas fa-sort-numeric-up"></i> Quantity Sold</label>
-                    <input type="number" id="quantity-sold" required>
+                    <label><i class="fas fa-info-circle"></i> Description</label>
+                    <textarea id="product-description" rows="3" placeholder="Product description (optional)"></textarea>
                 </div>
                 <button type="submit" class="btn-primary">
                     <i class="fas fa-plus"></i> Add Product

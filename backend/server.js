@@ -9,16 +9,11 @@ const productsFile = path.join(__dirname, 'products.json');
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../src')));
 
-// Serve page templates
-app.get('/pages/:page', (req, res) => {
-    const page = req.params.page.replace(/[^a-zA-Z0-9\-]/g, '');
-    const filePath = path.join(__dirname, `../src/pages/${page}.html`);
-    if (fs.existsSync(filePath)) {
-        res.sendFile(filePath);
-    } else {
-        res.status(404).send('Page not found');
-    }
-});
+// Serve static files from src directory
+app.use('/src', express.static(path.join(__dirname, '../src')));
+app.use('/js', express.static(path.join(__dirname, '../src/js')));
+app.use('/styles', express.static(path.join(__dirname, '../src/styles')));
+app.use('/assets', express.static(path.join(__dirname, '../src/assets')));
 
 // API routes
 app.get('/api/products', (req, res) => {
