@@ -1378,6 +1378,83 @@ body {
     }
 }
 
+/* Extra-small screens: convert sidebar to drawer and tighten spacings */
+@media (max-width: 640px) {
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        height: 100vh;
+        width: 260px;
+        box-shadow: var(--shadow-xl);
+        transition: transform 0.3s ease, left 0.3s ease;
+    }
+
+    /* When a controller adds .open, reveal the drawer */
+    .sidebar.open {
+        left: 0;
+    }
+
+    .main-content {
+        overflow-x: hidden;
+    }
+
+    .dashboard-enterprise,
+    .analytics-page,
+    .ai-insights-page,
+    .accountability-page,
+    .wholesalers-page,
+    .adverts-page {
+        padding: 16px;
+    }
+
+    .kpi-value {
+        font-size: 26px;
+    }
+
+    .charts-section-enterprise {
+        margin: 16px;
+        gap: 12px;
+    }
+
+    .chart-container {
+        padding: 16px;
+    }
+
+    .inventory-overview {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .analytics-grid,
+    .reports-grid,
+    .users-grid,
+    .settings-grid,
+    .campaigns-grid,
+    .suppliers-grid,
+    .accountability-details,
+    .analytics-charts {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .campaign-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .performance-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    /* Keep the floating logout compact on mobile */
+    body > div[style*="LOGOUT"],
+    body > div[style*="Logout" ] {
+        top: 12px !important;
+        right: 12px !important;
+        transform: scale(0.95);
+    }
+}
+
 /* Authentication Notifications */
 .auth-notification {
     position: fixed;
