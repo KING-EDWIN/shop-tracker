@@ -396,7 +396,7 @@ body {
 }
 
 .summary-header {
-    padding: 24px 32px;
+    padding: 16px 24px;
     border-bottom: 1px solid var(--border-light);
     display: flex;
     justify-content: space-between;
@@ -1467,6 +1467,35 @@ body {
         right: 12px !important;
         transform: scale(0.95);
     }
+}
+
+/* Optimize specifically for 700x700-ish viewports */
+@media (max-width: 700px) {
+    /* Make the hamburger visible and reachable */
+    #toggle-sidebar {
+        display: inline-flex;
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: var(--background-white);
+        border: 1px solid var(--border-medium);
+        border-radius: 8px;
+        padding: 8px;
+        z-index: 1100;
+    }
+
+    .sidebar {
+        width: 220px;
+        left: -220px;
+    }
+    .sidebar.open { left: 0; }
+
+    /* Hide non-essential text to fit */
+    .brand-text, .user-profile, .nav-section h3 { display: none; }
+    .nav-link { padding: 12px 14px; }
+
+    /* Content should span full width */
+    .main-content { width: 100%; }
 }
 
 /* Authentication Notifications */

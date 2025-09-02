@@ -1,4 +1,347 @@
 // Main Application Controller - Enterprise Shop Analyser
+// Ensure mobile sidebar toggle exists globally
+(function ensureSidebarToggle() {
+  if (typeof window !== 'undefined' && !window.toggleSidebar) {
+    window.toggleSidebar = function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+      if (!sidebar) return;
+      sidebar.classList.toggle('open');
+    };
+  }
+})();
+
+// Lightweight cashier tools (inventory + sales entry) with immediate feedback
+(function cashierTools() {
+  if (typeof window === 'undefined') return;
+  if (!window.salesRecords) window.salesRecords = [];
+
+  function renderSalesEntryUI() {
+    const el = document.getElementById('content-area');
+    if (!el) return;
+    el.innerHTML = `
+      <div class="sales-entry-content">
+        <div class="page-header">
+          <h2><i class="fas fa-cash-register"></i> Record Daily Sales</h2>
+          <p>Cashier can quickly capture sales; insights update automatically.</p>
+        </div>
+        <div class="sales-form-section">
+          <form id="sales-entry-form" class="sales-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label><i class="fas fa-box"></i> Product Name</label>
+                <input required name="productName" placeholder="e.g. Wireless Earbuds" />
+              </div>
+              <div class="form-group">
+                <label><i class="fas fa-hashtag"></i> Quantity Sold</label>
+                <input required type="number" min="1" name="quantity" placeholder="e.g. 3" />
+              </div>
+              <div class="form-group">
+                <label><i class="fas fa-tag"></i> Unit Price (UGX)</label>
+                <input required type="number" min="0" name="unitPrice" placeholder="e.g. 120000" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label><i class="fas fa-barcode"></i> SKU (optional)</label>
+                <input name="sku" placeholder="e.g. EAR-004" />
+              </div>
+              <div class="form-group">
+                <label><i class="fas fa-layer-group"></i> Category</label>
+                <select name="category">
+                  <option>Electronics</option>
+                  <option>Clothing</option>
+                  <option>Footwear</option>
+                  <option>Accessories</option>
+                  <option>Health</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn-primary" type="submit"><i class="fas fa-save"></i> Save Sale</button>
+          </form>
+        </div>
+
+        <div class="daily-summary-content">
+          <div class="page-header"><h2><i class="fas fa-list"></i> Today\'s Transactions</h2></div>
+          <div id="sales-transactions" class="transactions-list"></div>
+        </div>
+      </div>
+    `;
+
+    const form = document.getElementById('sales-entry-form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const sale = {
+        id: Date.now(),
+        productName: fd.get('productName').trim(),
+        quantity: Number(fd.get('quantity')),
+        unitPrice: Number(fd.get('unitPrice')),
+        sku: (fd.get('sku') || '').trim(),
+        category: fd.get('category'),
+        amount: Number(fd.get('quantity')) * Number(fd.get('unitPrice')),
+        time: new Date().toLocaleTimeString()
+      };
+      window.salesRecords.unshift(sale);
+
+      // Attempt to update in-memory inventory if available
+      try {
+        if (window.inventoryManager && Array.isArray(window.inventoryManager.products)) {
+          const p = window.inventoryManager.products.find(pr => pr.name.toLowerCase() === sale.productName.toLowerCase());
+          if (p) {
+            p.sold = (p.sold || 0) + sale.quantity;
+            p.stock = Math.max(0, (p.stock || 0) - sale.quantity);
+          }
+        }
+      } catch {}
+
+      form.reset();
+      renderTransactions();
+      // Quick feedback
+      alert('Sale saved');
+    });
+
+    renderTransactions();
+  }
+
+  function renderTransactions() {
+    const list = document.getElementById('sales-transactions');
+    if (!list) return;
+    if (window.salesRecords.length === 0) {
+      list.innerHTML = '<div class="transaction-item">No sales recorded yet.</div>';
+      return;
+    }
+    list.innerHTML = window.salesRecords.slice(0, 10).map(t => `
+      <div class="transaction-item">
+        <div class="transaction-info">
+          <span class="product-name">${t.productName} (${t.quantity} @ UGX ${t.unitPrice.toLocaleString()})</span>
+          <span class="transaction-time">${t.time}</span>
+        </div>
+        <div class="transaction-amount">UGX ${t.amount.toLocaleString()}</div>
+      </div>
+    `).join('');
+  }
+
+  function renderInventoryEntryUI() {
+    const el = document.getElementById('content-area');
+    if (!el) return;
+    el.innerHTML = `
+      <div class="sales-entry-content">
+        <div class="page-header">
+          <h2><i class="fas fa-boxes"></i> Add/Update Inventory</h2>
+          <p>Capture new stock arrivals and adjust quantities.</p>
+        </div>
+        <div class="sales-form-section">
+          <form id="inventory-entry-form" class="sales-form">
+            <div class="form-row">
+              <div class="form-group"><label>Product Name</label><input required name="name" /></div>
+              <div class="form-group"><label>Category</label>
+                <select name="category">
+                  <option>Electronics</option><option>Clothing</option><option>Footwear</option>
+                  <option>Accessories</option><option>Health</option>
+                </select>
+              </div>
+              <div class="form-group"><label>Supplier</label><input name="supplier" placeholder="e.g. Nile Traders" /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Stock Qty</label><input required type="number" min="0" name="stock" /></div>
+              <div class="form-group"><label>Wholesale Cost (UGX)</label><input required type="number" min="0" name="wholesaleCost" /></div>
+              <div class="form-group"><label>Profit Margin (%)</label><input required type="number" min="0" max="100" name="profitMargin" value="20" /></div>
+            </div>
+            <button class="btn-primary" type="submit"><i class="fas fa-save"></i> Save Inventory</button>
+          </form>
+        </div>
+
+        <div class="inventory-list-section">
+          <div class="page-header"><h2><i class="fas fa-clipboard-list"></i> Current Inventory</h2></div>
+          <div id="inventory-list"></div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('inventory-entry-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+      const fd = new FormData(e.currentTarget);
+      const product = {
+        id: Date.now(),
+        name: fd.get('name').trim(),
+        category: fd.get('category'),
+        supplier: (fd.get('supplier') || '').trim(),
+        stock: Number(fd.get('stock')),
+        sold: 0,
+        wholesaleCost: Number(fd.get('wholesaleCost')),
+        profitMargin: Number(fd.get('profitMargin'))
+      };
+      try {
+        if (window.inventoryManager) {
+          // If product exists, update; else add
+          const existing = window.inventoryManager.products.find(p => p.name.toLowerCase() === product.name.toLowerCase());
+          if (existing) {
+            Object.assign(existing, product, { id: existing.id });
+          } else {
+            window.inventoryManager.products.push(product);
+          }
+          window.inventoryManager.processInventoryData();
+        }
+      } catch {}
+      e.currentTarget.reset();
+      alert('Inventory saved');
+      renderInventoryList();
+    });
+    renderInventoryList();
+  }
+
+  // Hook navigation clicks
+  document.addEventListener('click', (e) => {
+    const salesLink = e.target.closest('.nav-link[data-page="sales-entry"]');
+    const invEntryLink = e.target.closest('.nav-link[data-page="inventory-entry"]');
+    const productsLink = e.target.closest('.nav-link[data-page="products"]');
+    if (salesLink) { e.preventDefault(); renderSalesEntryUI(); }
+    if (invEntryLink) { e.preventDefault(); renderInventoryEntryUI(); }
+    if (productsLink) { /* show inventory management page enhancements */ setTimeout(enhanceInventoryManagementUI, 200); }
+  });
+
+  // Expose for programmatic routing
+  window.renderSalesEntry = renderSalesEntryUI;
+  window.renderInventoryEntry = renderInventoryEntryUI;
+
+  // Helpers: render and adjust inventory rows
+  function renderInventoryList() {
+    const container = document.getElementById('inventory-list');
+    if (!container) return;
+    const products = (window.inventoryManager && window.inventoryManager.products) || [];
+    if (products.length === 0) {
+      container.innerHTML = '<div class="transaction-item">No inventory yet.</div>';
+      return;
+    }
+    container.innerHTML = products.map(p => `
+      <div class="transaction-item">
+        <div class="transaction-info">
+          <span class="product-name">${p.name} <small style="color:#64748b">(${p.category || 'N/A'})</small></span>
+          <span class="transaction-time">Stock: <b>${p.stock ?? 0}</b> • Sold: <b>${p.sold ?? 0}</b></span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center">
+          <button class="btn-secondary" onclick="window.adjustStock(${p.id}, 'add')"><i class="fas fa-plus"></i> Stock</button>
+          <button class="btn-secondary" onclick="window.adjustStock(${p.id}, 'sub')"><i class="fas fa-minus"></i> Stock</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.adjustStock = function(id, action) {
+    if (!window.inventoryManager) return;
+    const p = window.inventoryManager.products.find(x => x.id === id);
+    if (!p) return;
+    const qtyStr = prompt(action === 'add' ? 'Add how many units to stock?' : 'Subtract how many units (sold/adjustment)?', '1');
+    const qty = Number(qtyStr);
+    if (!qty || qty < 0) return;
+    if (action === 'add') {
+      p.stock = (p.stock || 0) + qty;
+    } else {
+      p.sold = (p.sold || 0) + qty;
+      p.stock = Math.max(0, (p.stock || 0) - qty);
+    }
+    try { window.inventoryManager.processInventoryData(); } catch {}
+    renderInventoryList();
+  }
+
+  // Lightweight hash router so #inventory-entry shows the editor instead of dashboard
+  function handleRoute() {
+    const hash = (window.location.hash || '').replace('#', '');
+    if (hash === 'inventory-entry') {
+      renderInventoryEntryUI();
+    } else if (hash === 'sales-entry') {
+      renderSalesEntryUI();
+    }
+  }
+  window.addEventListener('hashchange', handleRoute);
+  document.addEventListener('DOMContentLoaded', handleRoute);
+
+  // Enhance Inventory Management page with inline stock controls
+  function enhanceInventoryManagementUI() {
+    const content = document.getElementById('content-area');
+    if (!content) return;
+    // Only proceed if inventory section exists
+    const analyticsContainer = content.querySelector('.product-analytics');
+    if (!analyticsContainer) return;
+
+    const cards = content.querySelectorAll('.product-analytics-card, .inventory-card, .kpi-card');
+    if (cards.length === 0 && analyticsContainer) {
+      // Fallback: try card-like items inside analytics grid
+      enhanceByHeaders(content);
+      return;
+    }
+    attachControlsToCards(cards);
+  }
+
+  function enhanceByHeaders(root) {
+    const headers = root.querySelectorAll('.product-header h4, h4, h3');
+    const used = new Set();
+    headers.forEach(h => {
+      const name = (h.textContent || '').trim();
+      if (!name || used.has(name)) return;
+      used.add(name);
+      const wrapper = h.closest('.product-analytics-card') || h.parentElement;
+      if (!wrapper) return;
+      injectToolbar(wrapper, name);
+    });
+  }
+
+  function attachControlsToCards(cards) {
+    cards.forEach(card => {
+      const titleEl = card.querySelector('h4, .product-name, .product-header h4');
+      const name = titleEl ? (titleEl.textContent || '').trim() : '';
+      if (!name) return;
+      injectToolbar(card, name);
+    });
+  }
+
+  function injectToolbar(container, productName) {
+    if (container.querySelector('.inline-stock-toolbar')) return;
+    const p = findProductByName(productName);
+    const stock = p ? (p.stock || 0) : 0;
+    const bar = document.createElement('div');
+    bar.className = 'inline-stock-toolbar';
+    bar.style.marginTop = '8px';
+    bar.style.display = 'flex';
+    bar.style.gap = '8px';
+    bar.innerHTML = `
+      <span style="font-size:12px;color:#64748b">Stock: <b id="stock-val-${cssSafe(productName)}">${stock}</b></span>
+      <button class="btn-secondary" data-action="add">+ Stock</button>
+      <button class="btn-secondary" data-action="sub">- Stock</button>
+    `;
+    bar.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const action = btn.getAttribute('data-action');
+      adjustStockByName(productName, action);
+    });
+    container.appendChild(bar);
+  }
+
+  function cssSafe(s) { return s.replace(/[^a-z0-9_-]/gi, '_'); }
+
+  function findProductByName(name) {
+    if (!window.inventoryManager) return null;
+    return window.inventoryManager.products.find(p => (p.name || '').toLowerCase() === name.toLowerCase());
+  }
+
+  function adjustStockByName(name, action) {
+    const p = findProductByName(name);
+    if (!p) { alert('Product not found'); return; }
+    const qtyStr = prompt(action === 'add' ? 'Add how many units to stock?' : 'Subtract how many units (sold/adjustment)?', '1');
+    const qty = Number(qtyStr);
+    if (!qty || qty < 0) return;
+    if (action === 'add') {
+      p.stock = (p.stock || 0) + qty;
+    } else {
+      p.sold = (p.sold || 0) + qty;
+      p.stock = Math.max(0, (p.stock || 0) - qty);
+    }
+    try { window.inventoryManager.processInventoryData(); } catch {}
+    const label = document.getElementById(`stock-val-${cssSafe(name)}`);
+    if (label) label.textContent = String(p.stock || 0);
+  }
+})();
 class ShopAnalyserApp {
     constructor() {
         this.currentPage = 'dashboard';

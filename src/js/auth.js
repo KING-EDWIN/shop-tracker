@@ -279,7 +279,7 @@ class AuthSystem {
         const roleNavigation = {
             'admin': ['dashboard', 'products', 'ai-insights', 'analytics', 'accountability', 'taxes', 'wholesalers', 'adverts', 'system-settings'],
             'manager': ['dashboard', 'products', 'analytics', 'accountability', 'taxes', 'wholesalers', 'adverts', 'business-reports'],
-            'cashier': ['dashboard', 'products', 'sales-entry', 'daily-summary', 'basic-analytics']
+            'cashier': ['dashboard', 'products', 'inventory-entry', 'sales-entry', 'daily-summary', 'basic-analytics']
         };
 
         const allowedPages = roleNavigation[this.currentUser.role] || [];

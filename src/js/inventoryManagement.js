@@ -155,6 +155,11 @@ class InventoryManagementEnterprise {
         return factors[month];
     }
 
+    // Provide full seasonal factors array for use in forecasts
+    calculateSeasonalFactors() {
+        return [0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.2, 1.1, 1.0, 0.9, 0.8, 0.9];
+    }
+
     getMarketGrowthFactor(category) {
         // Market growth factors by category
         const growthFactors = {
@@ -165,6 +170,18 @@ class InventoryManagementEnterprise {
             'Health': 1.08
         };
         return growthFactors[category] || 1.1;
+    }
+
+    analyzeMarketTrends(category) {
+        // Simple placeholder trends so UI can render without errors
+        const trends = {
+            Electronics: { growth: '+5%', sentiment: 'positive' },
+            Clothing: { growth: '+2%', sentiment: 'stable' },
+            Footwear: { growth: '+3%', sentiment: 'stable' },
+            Accessories: { growth: '+4%', sentiment: 'positive' },
+            Health: { growth: '+1%', sentiment: 'neutral' }
+        };
+        return trends[category] || { growth: '+2%', sentiment: 'neutral' };
     }
 
     getEconomicOutlookFactor() {
