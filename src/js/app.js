@@ -227,21 +227,26 @@
     `).join('');
   }
 
+  // Legacy function for compatibility - redirects to new app method
   window.adjustStock = function(id, action) {
-    if (!window.inventoryManager) return;
-    const p = window.inventoryManager.products.find(x => x.id === id);
-    if (!p) return;
-    const qtyStr = prompt(action === 'add' ? 'Add how many units to stock?' : 'Subtract how many units (sold/adjustment)?', '1');
-    const qty = Number(qtyStr);
-    if (!qty || qty < 0) return;
-    if (action === 'add') {
-      p.stock = (p.stock || 0) + qty;
+    console.log('🔄 Legacy adjustStock called, redirecting to window.app.adjustStock');
+    if (window.app && window.app.adjustStock) {
+      return window.app.adjustStock(id, action);
     } else {
-      p.sold = (p.sold || 0) + qty;
-      p.stock = Math.max(0, (p.stock || 0) - qty);
+      console.error('❌ window.app.adjustStock not available');
+      alert('Inventory management not ready. Please refresh the page.');
     }
-    try { window.inventoryManager.processInventoryData(); } catch {}
-    renderInventoryList();
+  }
+
+  // Global delete function for compatibility
+  window.deleteProduct = function(id, name) {
+    console.log('🔄 Global deleteProduct called, redirecting to window.app.deleteProduct');
+    if (window.app && window.app.deleteProduct) {
+      return window.app.deleteProduct(id, name);
+    } else {
+      console.error('❌ window.app.deleteProduct not available');
+      alert('Inventory management not ready. Please refresh the page.');
+    }
   }
 
   // Lightweight hash router so #inventory-entry shows the editor instead of dashboard
@@ -958,19 +963,23 @@ class ShopAnalyserApp {
     }
 
     async deleteProduct(productId, productName) {
+        console.log('🗑️ Delete product called:', productId, productName);
         if (!confirm(`Are you sure you want to delete "${productName}"? This action cannot be undone.`)) {
             return;
         }
 
         try {
+            console.log('🚀 Sending DELETE request for product:', productId);
             const response = await fetch(`/api/products/${productId}`, {
                 method: 'DELETE'
             });
 
             if (response.ok) {
+                console.log('✅ Product deleted successfully');
                 this.showSuccess(`Product "${productName}" deleted successfully!`);
                 this.loadProducts(); // Reload the page
             } else {
+                console.error('❌ Delete failed:', response.status);
                 this.showError('Failed to delete product. Please try again.');
             }
         } catch (error) {
@@ -980,8 +989,10 @@ class ShopAnalyserApp {
     }
 
     async adjustStock(productId, action) {
+        console.log('📦 Adjust stock called:', productId, action);
         const product = await this.getProductById(productId);
         if (!product) {
+            console.error('❌ Product not found:', productId);
             this.showError('Product not found.');
             return;
         }
@@ -1000,6 +1011,7 @@ class ShopAnalyserApp {
             
             if (action === 'add') {
                 updateData.stock = product.stock + quantity;
+                console.log(`➕ Adding ${quantity} to stock. New stock: ${updateData.stock}`);
             } else {
                 if (product.stock < quantity) {
                     this.showError('Cannot subtract more than available stock.');
@@ -1007,8 +1019,10 @@ class ShopAnalyserApp {
                 }
                 updateData.stock = product.stock - quantity;
                 updateData.sold = (product.sold || 0) + quantity;
+                console.log(`➖ Subtracting ${quantity} from stock. New stock: ${updateData.stock}, New sold: ${updateData.sold}`);
             }
 
+            console.log('🚀 Sending PUT request with data:', updateData);
             const response = await fetch(`/api/products/${productId}`, {
                 method: 'PUT',
                 headers: {
@@ -1018,9 +1032,11 @@ class ShopAnalyserApp {
             });
 
             if (response.ok) {
+                console.log('✅ Stock updated successfully');
                 this.showSuccess(`${quantity} units ${action === 'add' ? 'added to' : 'subtracted from'} ${product.name}.`);
                 this.loadProducts(); // Reload to show updated values
             } else {
+                console.error('❌ Stock update failed:', response.status);
                 this.showError('Failed to update stock. Please try again.');
             }
         } catch (error) {
@@ -1861,5 +1877,49 @@ window.logout = function() {
 
 // Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    window.shopAnalyser = new ShopAnalyserApp();
+    window.app = new ShopAnalyserApp();
+    window.shopAnalyser = window.app; // Keep both for compatibility
+    
+    // Add global test function for debugging
+    window.testInventory = function() {
+        console.log('🧪 Testing inventory functions...');
+        console.log('window.app exists:', !!window.app);
+        console.log('adjustStock function exists:', typeof window.app.adjustStock);
+        console.log('deleteProduct function exists:', typeof window.app.deleteProduct);
+        console.log('showAddProductForm function exists:', typeof window.app.showAddProductForm);
+        console.log('logout function exists:', typeof window.logout);
+        
+        // Test API connectivity
+        fetch('/api/products')
+            .then(response => response.json())
+            .then(data => {
+                console.log('✅ API connection working. Products count:', data.length);
+                console.log('Sample product:', data[0]);
+            })
+            .catch(error => {
+                console.error('❌ API connection failed:', error);
+            });
+    };
+
+    // Add quick test functions
+    window.testDelete = function() {
+        console.log('🗑️ Testing delete function...');
+        if (window.app && window.app.deleteProduct) {
+            console.log('✅ Delete function available');
+        } else {
+            console.error('❌ Delete function not available');
+        }
+    };
+
+    window.testStock = function() {
+        console.log('📦 Testing stock adjustment...');
+        if (window.app && window.app.adjustStock) {
+            console.log('✅ Stock adjustment function available');
+        } else {
+            console.error('❌ Stock adjustment function not available');
+        }
+    };
+    
+    console.log('✅ Shop Analyser App initialized successfully!');
+    console.log('🧪 Run window.testInventory() to test functions');
 });

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ccc; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Inventory Management Button Test</h1>
+    
+    <div class="test-section">
+        <h3>Test Functions</h3>
+        <button onclick="testAll()">🧪 Test All Functions</button>
+        <button onclick="testDelete()">🗑️ Test Delete</button>
+        <button onclick="testStock()">📦 Test Stock</button>
+        <button onclick="testLogout()">🚪 Test Logout</button>
+    </div>
+
+    <div class="test-section">
+        <h3>Test API</h3>
+        <button onclick="testAPI()">🔗 Test API Connection</button>
+        <div id="api-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Test Product Operations</h3>
+        <button onclick="testAddStock()">➕ Test Add Stock</button>
+        <button onclick="testSubtractStock()">➖ Test Subtract Stock</button>
+        <button onclick="testDeleteProduct()">🗑️ Test Delete Product</button>
+    </div>
+
+    <script>
+        function testAll() {
+            console.log('🧪 Running comprehensive test...');
+            testInventory();
+            testDelete();
+            testStock();
+            testLogout();
+        }
+
+        function testDelete() {
+            console.log('🗑️ Testing delete function...');
+            if (window.app && window.app.deleteProduct) {
+                console.log('✅ Delete function available');
+                alert('✅ Delete function is working!');
+            } else {
+                console.error('❌ Delete function not available');
+                alert('❌ Delete function not available');
+            }
+        }
+
+        function testStock() {
+            console.log('📦 Testing stock adjustment...');
+            if (window.app && window.app.adjustStock) {
+                console.log('✅ Stock adjustment function available');
+                alert('✅ Stock adjustment function is working!');
+            } else {
+                console.error('❌ Stock adjustment function not available');
+                alert('❌ Stock adjustment function not available');
+            }
+        }
+
+        function testLogout() {
+            console.log('🚪 Testing logout function...');
+            if (window.logout) {
+                console.log('✅ Logout function available');
+                alert('✅ Logout function is working!');
+            } else {
+                console.error('❌ Logout function not available');
+                alert('❌ Logout function not available');
+            }
+        }
+
+        function testAPI() {
+            console.log('🔗 Testing API connection...');
+            fetch('/api/products')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('✅ API working. Products:', data.length);
+                    document.getElementById('api-result').innerHTML = 
+                        '<div class="success">✅ API Working - ' + data.length + ' products found</div>';
+                })
+                .catch(error => {
+                    console.error('❌ API failed:', error);
+                    document.getElementById('api-result').innerHTML = 
+                        '<div class="error">❌ API Failed: ' + error.message + '</div>';
+                });
+        }
+
+        function testAddStock() {
+            if (window.app && window.app.adjustStock) {
+                window.app.adjustStock(1, 'add');
+            } else {
+                alert('❌ Stock function not available');
+            }
+        }
+
+        function testSubtractStock() {
+            if (window.app && window.app.adjustStock) {
+                window.app.adjustStock(1, 'subtract');
+            } else {
+                alert('❌ Stock function not available');
+            }
+        }
+
+        function testDeleteProduct() {
+            if (window.app && window.app.deleteProduct) {
+                window.app.deleteProduct(5, 'Test Product');
+            } else {
+                alert('❌ Delete function not available');
+            }
+        }
+    </script>
+</body>
+</html>
