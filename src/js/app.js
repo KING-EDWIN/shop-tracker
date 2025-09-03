@@ -423,8 +423,8 @@ class ShopAnalyserApp {
     setupNavigation() {
         // Handle sidebar navigation
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', async (e) => {
-                e.preventDefault();
+        link.addEventListener('click', async (e) => {
+            e.preventDefault();
                 const page = link.dataset.page;
                 if (page) {
                     await this.navigateToPage(page);
@@ -440,7 +440,7 @@ class ShopAnalyserApp {
     }
 
     async navigateToPage(page) {
-        // Update URL without page reload
+            // Update URL without page reload
         history.pushState({ page }, '', `#${page}`);
         
         // Update active navigation
@@ -480,7 +480,7 @@ class ShopAnalyserApp {
                         break;
                     case 'ai-insights':
                     await this.loadAIInsights();
-                    break;
+                        break;
                 case 'analytics':
                     await this.loadAnalytics();
                     break;
@@ -527,8 +527,8 @@ class ShopAnalyserApp {
                     <button class="btn-primary" onclick="location.reload()">
                         <i class="fas fa-refresh"></i> Reload Page
                     </button>
-                </div>
-            `;
+                    </div>
+                `;
         }
     }
 
@@ -712,10 +712,13 @@ class ShopAnalyserApp {
                     <div class="inventory-header">
                         <h2><i class="fas fa-boxes"></i> Enterprise Inventory Management</h2>
                         <div class="inventory-actions">
-                            <button class="btn-primary">
+                            <button class="btn-primary" onclick="window.app.showAddProductForm()">
+                                <i class="fas fa-plus"></i> Add New Product
+                            </button>
+                            <button class="btn-secondary" onclick="window.app.generateInventoryReport()">
                                 <i class="fas fa-file-alt"></i> Generate Report
                             </button>
-                            <button class="btn-secondary">
+                            <button class="btn-secondary" onclick="window.app.exportInventoryData()">
                                 <i class="fas fa-download"></i> Export Data
                             </button>
                         </div>
@@ -743,22 +746,117 @@ class ShopAnalyserApp {
                                 <div class="overview-subtitle">Requires Attention</div>
                             </div>
                         </div>
+                        
+                        <div class="overview-card">
+                            <div class="overview-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="overview-content">
+                                <h3>Total Inventory Value</h3>
+                                <div class="overview-value">UGX ${data.reduce((sum, p) => sum + (p.stock * p.wholesaleCost), 0).toLocaleString()}</div>
+                                <div class="overview-subtitle">At Cost</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Add New Product Form (Hidden by default) -->
+                    <div id="add-product-form" class="add-product-section" style="display: none;">
+                        <div class="form-header">
+                            <h3><i class="fas fa-plus-circle"></i> Add New Product</h3>
+                            <button class="btn-close" onclick="window.app.hideAddProductForm()">&times;</button>
+                        </div>
+                        <form id="new-product-form" class="product-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label><i class="fas fa-tag"></i> Product Name *</label>
+                                    <input type="text" name="name" required placeholder="e.g. Premium T-Shirt">
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-layer-group"></i> Category *</label>
+                                    <select name="category" required>
+                                        <option value="">Select Category</option>
+                                        <option value="Clothing">Clothing</option>
+                                        <option value="Footwear">Footwear</option>
+                                        <option value="Accessories">Accessories</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Health">Health</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label><i class="fas fa-barcode"></i> SKU *</label>
+                                    <input type="text" name="sku" required placeholder="e.g. TSH-001">
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-truck"></i> Supplier</label>
+                                    <input type="text" name="supplier" placeholder="e.g. Fashion Forward Ltd">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label><i class="fas fa-shopping-cart"></i> Wholesale Cost (UGX) *</label>
+                                    <input type="number" name="wholesaleCost" required min="0" placeholder="e.g. 8000">
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-tag"></i> Retail Price (UGX) *</label>
+                                    <input type="number" name="retailCost" required min="0" placeholder="e.g. 15000">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label><i class="fas fa-boxes"></i> Initial Stock *</label>
+                                    <input type="number" name="stock" required min="0" placeholder="e.g. 100">
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-info-circle"></i> Description</label>
+                                    <input type="text" name="description" placeholder="Product description">
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-save"></i> Add Product
+                                </button>
+                                <button type="button" class="btn-secondary" onclick="window.app.hideAddProductForm()">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     
                     <div class="product-analytics">
                         <h3><i class="fas fa-chart-bar"></i> Product Performance Analytics</h3>
                         <div class="analytics-grid">
                             ${data.map(product => `
-                                <div class="product-analytics-card">
+                                <div class="product-analytics-card" data-product-id="${product.id}">
                                     <div class="product-header">
                                         <h4>${product.name}</h4>
-                                        <span class="category-badge">${product.category}</span>
+                                        <div class="product-actions">
+                                            <span class="category-badge">${product.category}</span>
+                                            <button class="btn-delete" onclick="window.app.deleteProduct(${product.id}, '${product.name}')" title="Delete Product">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                     
                                     <div class="product-metrics">
                                         <div class="metric">
                                             <span class="metric-label">Stock Level</span>
-                                            <span class="metric-value ${product.stock < 20 ? 'warning' : 'normal'}">${product.stock}</span>
+                                            <div class="metric-value-container">
+                                                <span class="metric-value ${product.stock < 20 ? 'warning' : 'normal'}" id="stock-${product.id}">${product.stock}</span>
+                                                <div class="stock-controls">
+                                                    <button class="btn-stock btn-add" onclick="window.app.adjustStock(${product.id}, 'add')" title="Add Stock">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                    <button class="btn-stock btn-subtract" onclick="window.app.adjustStock(${product.id}, 'subtract')" title="Subtract Stock">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="metric">
+                                            <span class="metric-label">Sold</span>
+                                            <span class="metric-value" id="sold-${product.id}">${product.sold || 0}</span>
                                         </div>
                                         <div class="metric">
                                             <span class="metric-label">Profit Margin</span>
@@ -768,6 +866,14 @@ class ShopAnalyserApp {
                                             <span class="metric-label">SKU</span>
                                             <span class="metric-value">${product.sku}</span>
                                         </div>
+                                        <div class="metric">
+                                            <span class="metric-label">Wholesale Cost</span>
+                                            <span class="metric-value">UGX ${product.wholesaleCost.toLocaleString()}</span>
+                                        </div>
+                                        <div class="metric">
+                                            <span class="metric-label">Retail Price</span>
+                                            <span class="metric-value">UGX ${product.retailCost.toLocaleString()}</span>
+                                        </div>
                                     </div>
                                 </div>
                             `).join('')}
@@ -776,10 +882,246 @@ class ShopAnalyserApp {
                 </div>
             `;
             
+            // Setup form event listener
+            this.setupProductForm();
+            
         } catch (error) {
             console.error('Error loading inventory management:', error);
             document.querySelector('.main-content').innerHTML = '<p>Error loading inventory data</p>';
         }
+    }
+
+    // Product Management Methods
+    showAddProductForm() {
+        const form = document.getElementById('add-product-form');
+        if (form) {
+            form.style.display = 'block';
+            form.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    hideAddProductForm() {
+        const form = document.getElementById('add-product-form');
+        if (form) {
+            form.style.display = 'none';
+            document.getElementById('new-product-form').reset();
+        }
+    }
+
+    setupProductForm() {
+        const form = document.getElementById('new-product-form');
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                await this.handleAddProduct(form);
+            });
+        }
+    }
+
+    async handleAddProduct(form) {
+        try {
+            const formData = new FormData(form);
+            const productData = {
+                name: formData.get('name'),
+                category: formData.get('category'),
+                sku: formData.get('sku'),
+                supplier: formData.get('supplier') || 'Unknown Supplier',
+                wholesaleCost: parseFloat(formData.get('wholesaleCost')),
+                retailCost: parseFloat(formData.get('retailCost')),
+                stock: parseInt(formData.get('stock')),
+                sold: 0,
+                description: formData.get('description') || '',
+                profitMargin: ((parseFloat(formData.get('retailCost')) - parseFloat(formData.get('wholesaleCost'))) / parseFloat(formData.get('retailCost'))) * 100,
+                lastRestock: new Date().toISOString().split('T')[0],
+                reorderPoint: Math.ceil(parseInt(formData.get('stock')) * 0.2)
+            };
+
+            const response = await fetch('/api/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(productData)
+            });
+
+            if (response.ok) {
+                this.showSuccess('Product added successfully!');
+                this.hideAddProductForm();
+                this.loadProducts(); // Reload the page to show new product
+            } else {
+                this.showError('Failed to add product. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error adding product:', error);
+            this.showError('Error adding product. Please check your connection.');
+        }
+    }
+
+    async deleteProduct(productId, productName) {
+        if (!confirm(`Are you sure you want to delete "${productName}"? This action cannot be undone.`)) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/products/${productId}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                this.showSuccess(`Product "${productName}" deleted successfully!`);
+                this.loadProducts(); // Reload the page
+            } else {
+                this.showError('Failed to delete product. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error deleting product:', error);
+            this.showError('Error deleting product. Please check your connection.');
+        }
+    }
+
+    async adjustStock(productId, action) {
+        const product = await this.getProductById(productId);
+        if (!product) {
+            this.showError('Product not found.');
+            return;
+        }
+
+        const actionText = action === 'add' ? 'add to stock' : 'subtract from stock';
+        const quantityStr = prompt(`How many units do you want to ${actionText} for "${product.name}"?`, '1');
+        const quantity = parseInt(quantityStr);
+
+        if (isNaN(quantity) || quantity <= 0) {
+            this.showError('Please enter a valid positive number.');
+            return;
+        }
+
+        try {
+            const updateData = { ...product };
+            
+            if (action === 'add') {
+                updateData.stock = product.stock + quantity;
+            } else {
+                if (product.stock < quantity) {
+                    this.showError('Cannot subtract more than available stock.');
+                    return;
+                }
+                updateData.stock = product.stock - quantity;
+                updateData.sold = (product.sold || 0) + quantity;
+            }
+
+            const response = await fetch(`/api/products/${productId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updateData)
+            });
+
+            if (response.ok) {
+                this.showSuccess(`${quantity} units ${action === 'add' ? 'added to' : 'subtracted from'} ${product.name}.`);
+                this.loadProducts(); // Reload to show updated values
+            } else {
+                this.showError('Failed to update stock. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error updating stock:', error);
+            this.showError('Error updating stock. Please check your connection.');
+        }
+    }
+
+    async getProductById(productId) {
+        try {
+            const response = await fetch('/api/products');
+            const products = await response.json();
+            return products.find(p => p.id === productId);
+        } catch (error) {
+            console.error('Error fetching product:', error);
+            return null;
+        }
+    }
+
+    generateInventoryReport() {
+        // Generate a comprehensive inventory report
+        const report = {
+            timestamp: new Date().toISOString(),
+            generatedBy: 'Shop Analyser System',
+            summary: {
+                totalProducts: document.querySelectorAll('.product-analytics-card').length,
+                lowStockItems: document.querySelectorAll('.metric-value.warning').length,
+                totalValue: document.querySelector('.overview-value').textContent
+            }
+        };
+        
+        console.log('Inventory Report Generated:', report);
+        this.showSuccess('Inventory report generated! Check console for details.');
+    }
+
+    exportInventoryData() {
+        // Export inventory data as JSON
+        fetch('/api/products')
+            .then(response => response.json())
+            .then(data => {
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `inventory-export-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+                this.showSuccess('Inventory data exported successfully!');
+            })
+            .catch(error => {
+                console.error('Error exporting data:', error);
+                this.showError('Error exporting data. Please try again.');
+            });
+    }
+
+    showSuccess(message) {
+        // Create a temporary success message
+        const notification = document.createElement('div');
+        notification.className = 'notification success';
+        notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            font-weight: 500;
+        `;
+        
+        document.body.appendChild(notification);
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+
+    showError(message) {
+        // Create a temporary error message
+        const notification = document.createElement('div');
+        notification.className = 'notification error';
+        notification.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ef4444;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            font-weight: 500;
+        `;
+        
+        document.body.appendChild(notification);
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
     }
 
     async loadAIInsights() {

@@ -106,6 +106,40 @@ app.post('/api/products', (req, res) => {
     res.json({ success: true, product: newProduct });
 });
 
+// Update existing product
+app.put('/api/products/:id', (req, res) => {
+    const productId = parseInt(req.params.id);
+    const productIndex = enterpriseData.products.findIndex(p => p.id === productId);
+    
+    if (productIndex === -1) {
+        return res.status(404).json({ success: false, message: 'Product not found' });
+    }
+    
+    // Update the product with new data
+    const updatedProduct = {
+        ...enterpriseData.products[productIndex],
+        ...req.body,
+        id: productId, // Ensure ID doesn't change
+        profitMargin: ((req.body.retailCost - req.body.wholesaleCost) / req.body.retailCost) * 100
+    };
+    
+    enterpriseData.products[productIndex] = updatedProduct;
+    res.json({ success: true, product: updatedProduct });
+});
+
+// Delete product
+app.delete('/api/products/:id', (req, res) => {
+    const productId = parseInt(req.params.id);
+    const productIndex = enterpriseData.products.findIndex(p => p.id === productId);
+    
+    if (productIndex === -1) {
+        return res.status(404).json({ success: false, message: 'Product not found' });
+    }
+    
+    const deletedProduct = enterpriseData.products.splice(productIndex, 1)[0];
+    res.json({ success: true, product: deletedProduct });
+});
+
 app.get('/api/suppliers', (req, res) => {
     res.json(enterpriseData.suppliers);
 });

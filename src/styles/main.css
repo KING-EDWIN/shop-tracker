@@ -635,7 +635,7 @@ body {
 }
 
 .confidence-label {
-    color: var(--text-light);
+  color: var(--text-light);
 }
 
 .confidence-value {
@@ -774,7 +774,7 @@ body {
 
 .activity-time {
     font-size: 11px;
-    color: var(--text-light);
+  color: var(--text-light);
 }
 
 .activity-amount {
@@ -883,7 +883,7 @@ body {
 
 .notification-time {
     font-size: 11px;
-    color: var(--text-light);
+  color: var(--text-light);
 }
 
 /* User Menu Dropdown */
@@ -918,8 +918,8 @@ body {
     height: 40px;
     border-radius: 50%;
     background: var(--primary-color);
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
     justify-content: center;
     margin-bottom: 12px;
 }
@@ -973,7 +973,7 @@ body {
 
 .inventory-header {
     display: flex;
-    justify-content: space-between;
+  justify-content: space-between;
     align-items: center;
     margin-bottom: 32px;
 }
@@ -982,8 +982,8 @@ body {
     font-size: 28px;
     font-weight: 700;
     color: var(--text-primary);
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
     gap: 16px;
 }
 
@@ -1004,8 +1004,8 @@ body {
     border: 1px solid var(--border-light);
     border-radius: var(--radius-lg);
     padding: 24px;
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
     gap: 20px;
     transition: var(--transition);
 }
@@ -1403,7 +1403,7 @@ body {
         left: 0;
     }
 
-    .main-content {
+.main-content {
         overflow-x: hidden;
     }
 
@@ -2386,4 +2386,234 @@ body {
     background: var(--primary-color);
     color: white;
     border-color: var(--primary-color);
+}
+
+/* Enhanced Inventory Management Styles */
+.add-product-section {
+    background: var(--background-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border: 1px solid var(--border-light);
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.form-header h3 {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.btn-close:hover {
+    background: var(--background-light);
+    color: var(--text-primary);
+}
+
+.product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group select {
+    padding: 0.75rem;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    transition: var(--transition);
+    background: var(--background-white);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.product-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-delete {
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.75rem;
+}
+
+.btn-delete:hover {
+    background: var(--danger-dark);
+    transform: translateY(-1px);
+}
+
+.metric-value-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.stock-controls {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.btn-stock {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.75rem;
+    min-width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-stock:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.btn-stock.btn-subtract {
+    background: var(--warning-color);
+}
+
+.btn-stock.btn-subtract:hover {
+    background: #d97706;
+}
+
+.metric-value.warning {
+    color: var(--warning-color);
+    font-weight: 600;
+}
+
+.metric-value.normal {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+/* Enhanced product analytics cards */
+.product-analytics-card {
+    position: relative;
+    transition: var(--transition);
+}
+
+.product-analytics-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.product-analytics-card .product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.product-analytics-card h4 {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+}
+
+.category-badge {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.product-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+}
+
+.metric {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.metric-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
 }
